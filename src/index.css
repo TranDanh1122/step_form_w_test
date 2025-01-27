@@ -589,6 +589,10 @@ video {
   height: 1.25rem;
 }
 
+.h-\[1px\]{
+  height: 1px;
+}
+
 .w-1\/3{
   width: 33.333333%;
 }
@@ -721,6 +725,10 @@ video {
 
 .bg-\[var\(--alabaster\)\]{
   background-color: var(--alabaster);
+}
+
+.bg-\[var\(--cool-gray\)\]{
+  background-color: var(--cool-gray);
 }
 
 .bg-\[var\(--light-blue\)\]{
@@ -861,6 +869,10 @@ video {
 .text-white{
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity, 1));
+}
+
+.underline{
+  text-decoration-line: underline;
 }
 
 .placeholder-\[var\(--cool-gray\)\]::-moz-placeholder{

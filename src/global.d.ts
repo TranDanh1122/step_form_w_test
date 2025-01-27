@@ -2,6 +2,9 @@ declare global {
     interface DynamicKey {
         [key: string]: object
     }
+    interface addOns {
+        name: string, value: string
+    }
     interface Form {
         step1: {
             name: string,
@@ -16,9 +19,8 @@ declare global {
             [key: string]: string
         },
         step3: {
-            addOns: string[],
-            value: string[],
-            [key: string]: string[]
+            addOns: addOns[],
+            [key: string]: addOns[]
         }
     }
     interface PickerProps {

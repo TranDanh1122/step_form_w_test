@@ -10,17 +10,17 @@ export default function Step3({ onChange, data, error }: { data: Pick<Form, "ste
             <div className="flex flex-col gap-6">
                 <Checker name="Online service" desc="Access to multiplayer games"
                     monthValue="1" yearValue="10"
-                    selected={data.step3.addOns.includes("Online service")}
+                    selected={data.step3.addOns.some(el => el.name == "Online service")}
                     duration={data.step2.duration}
                     onChange={onChange} />
                 <Checker name="Larger storage" desc="Extra 1TB of cloud save"
                     monthValue="2" yearValue="20"
-                    selected={data.step3.addOns.includes("Larger storage")}
+                    selected={data.step3.addOns.some(el => el.name == "Larger storage")}
                     duration={data.step2.duration}
                     onChange={onChange} />
                 <Checker name="Customizable profile" desc="Custom theme on your profile"
                     monthValue="2" yearValue="20"
-                    selected={data.step3.addOns.includes("Customizable profile")}
+                    selected={data.step3.addOns.some(el => el.name == "Customizable profile")}
                     duration={data.step2.duration}
                     onChange={onChange} />
             </div>
