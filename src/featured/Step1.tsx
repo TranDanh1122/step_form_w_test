@@ -1,5 +1,25 @@
 import React from "react";
-function Step1(): React.JSX.Element {
-    return <>step 1</>
+import Input from "../components/Input";
+
+function Step1({ onChange, data, error }: { data: Pick<Form, "step1">, error: Pick<Form, "step1">, onChange: (value: string, name: string) => void }): React.JSX.Element {    
+    return <>
+        <div className="">
+            <div className="mb-10">
+                <h1 className="font-bold text-[2rem] text-[var(--marine-blue)]">Personal info</h1>
+                <span className="font-medium text-base leading-6 text-[var(--cool-gray)]">Please provide your name, email address, and phone number.</span>
+            </div>
+            <div className="flex flex-col gap-6">
+                <Input key={"name"} name="name" onChange={onChange}
+                    label="Name" placeHolder="e.g. Stephen King" error={error.step1?.name || ""} value={data.step1.name} />
+                <Input key={"email"} name="email" onChange={onChange}
+                    label="Email Address" placeHolder="e.g. stephenking@lorem.com" error={error.step1?.email || ""} value={data.step1.email} />
+                <Input key={"phone"} name="phone" onChange={onChange}
+                    label="Phone Number" placeHolder="e.g. +1 234 567 890" error={error.step1?.phone || ""} value={data.step1.phone} />
+
+            </div>
+        </div>
+    </>
+
+
 }
 export default Step1
