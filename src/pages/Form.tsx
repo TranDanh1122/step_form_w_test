@@ -35,6 +35,16 @@ export const useForm = (numberOfStep: number) => {
         },
         step2: ""
     })
+    /* 
+        why your need index dependency????
+        index is state => reactive value
+        usecallback will capture all reactive value when compoennt mount
+        if you not re-render callback event when index change, index always = 0 (initdata)
+        That how useCallback working!!!
+        But why not add data, data is reactive value too????
+        because when you using callback to set data, the param (data) get the data of the CURRENT re-render
+        so (data) is always the newest data!!!
+    */
     const handleChange = React.useCallback((value: string, name: string) => {
         const currentStep = `step${index + 1}` as keyof Form
         setData((data: Form) => {
@@ -42,6 +52,7 @@ export const useForm = (numberOfStep: number) => {
             return { ...data }
         })
     }, [index])
+
     const handleNext = () => {
         setIndex((index) => {
             if ((index + 1) == numberOfStep) return index
