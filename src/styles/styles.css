@@ -31,3 +31,32 @@ body {
     justify-content: center;
     align-items: center;
 }
+
+.custom_range {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    width: 2.5rem;
+    height: 1.25rem;
+    padding: 0.25rem;
+    background-color: var(--marine-blue);
+    border-radius: 10px;
+}
+
+
+.custom_range::-webkit-slider-thumb {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 0.75rem;
+    height: 0.75rem;
+    border-radius: 50%;
+    background-color: white;
+}
+.custom_range::-moz-range-thumb {
+    appearance: none;
+    -moz-appearance: none;
+    width: 0.75rem;
+    height: 0.75rem;
+    border-radius: 50%;
+    background-color: white;
+}

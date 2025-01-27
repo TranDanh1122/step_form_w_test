@@ -6,16 +6,15 @@ interface InputProps {
     placeHolder: string,
     onChange: (value: string, name: string) => void,
     error?: string,
-    value : string
+    value: string
 }
 const Input = React.memo(({ name, label, placeHolder, onChange, error, value }: InputProps): React.JSX.Element => {
+    console.log("input render");
+    
     return <fieldset className="flex flex-col gap-2 w-full">
         <div className="flex justify-between items-center">
             <label className="text-[0.875rem] text-[--marine-blue] font-bold " htmlFor={name}>{label}</label>
-            <span className={clsx("font-bold text-[0.875rem]", {
-                "block": error,
-                "hidden": !error
-            })}>{error}</span>
+            {error && <span className="font-bold text-[0.875rem]">{error}</span>}
         </div>
         <input value={value} role={`textBox_${name}`} className={clsx("border-[2px] outline-none rounded-lg w-full border-solid p-4 text-base font-medium text-[--marine-blue] placeholder-[var(--cool-gray)]", {
             "focus:border-[var(--purplish-blue)]": !error,

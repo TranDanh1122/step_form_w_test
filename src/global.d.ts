@@ -9,9 +9,13 @@ declare global {
             phone: string
             [key:string] : string
         },
-        // step2 : {
+        step2 : {
+            plan : string,
+            value: string,
+            duration: string,
+            [key:string] : string
 
-        // }
+        }
     }
 }
 export { }
