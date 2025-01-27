@@ -1,6 +1,6 @@
 import clsx from "clsx";
 import React from "react";
-const Picker = React.memo(({ icon, name, monthValue, yearValue, selected, duration, onChange }: { onChange: (value: string, name: string) => void, name: string, icon: string, monthValue: string, yearValue: string, selected: boolean, duration: string }): React.JSX.Element => {
+const Picker = React.memo(({ icon, name, monthValue, yearValue, selected, duration, onChange }: PickerProps): React.JSX.Element => {
     console.log("picker render");
 
     return <>

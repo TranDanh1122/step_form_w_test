@@ -1,6 +1,35 @@
+import clsx from "clsx";
 import React from "react";
-const Checker = React.memo((): React.JSX.Element => {
+interface CheckerProps extends Omit<PickerProps, "icon"> {
+    desc: string
+}
+const Checker = React.memo(({ name, desc, monthValue, yearValue, selected, duration, onChange }: CheckerProps): React.JSX.Element => {
+    console.log("picker render");
 
+    return <>
+        <div onClick={(e) => {
+            e.stopPropagation()
+            onChange(name, "addOns")
+            onChange(duration == "month" ? monthValue : yearValue, "value")
+        }} className={clsx("border-[2px] border-solid p-6 w-full rounded-lg cursor-pointer flex items-center justify-between hover:border-[var(--purplish-blue)] ", {
+            "border-[var(--purplish-blue)] bg-[var(--alabaster)]": selected,
+            "border-[var(--light-gray)]": !selected
+        })}>
+            <input type="checkbox" onChange={
+                (e) => {
+                    e.stopPropagation()
+                    onChange(name, "addOns")
+                    onChange(duration == "month" ? monthValue : yearValue, "value")
+                }
+            } checked={selected} className="custom_checkbox w-5 h-5 rounded-sm" />
+            <div className="flex flex-col gap-1">
+                <span className="font-medium text-base text-[var(--marine-blue)] capitalize ">{name}</span>
+                <span className="text-[0.875rem] leading-5 text-[var(--cool-gray)]  ">{desc}</span>
+            </div>
+            {duration == "monthly" && <span className="text-[0.875rem] text-[var(--purplish-blue)] leading-5">${monthValue}/mo</span>}
+            {duration == "yearly" && <span className="text-[0.875rem] text-[var(--purplish-blue)] leading-5">${yearValue}/yr</span>}
+        </div>
+    </>
 })
 Checker.displayName = "Checker"
 export default Checker

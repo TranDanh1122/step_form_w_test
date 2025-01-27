@@ -52,6 +52,7 @@ body {
     border-radius: 50%;
     background-color: white;
 }
+
 .custom_range::-moz-range-thumb {
     appearance: none;
     -moz-appearance: none;
@@ -59,4 +60,27 @@ body {
     height: 0.75rem;
     border-radius: 50%;
     background-color: white;
+}
+
+.custom_checkbox {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    border: 1px solid var(--cool-gray);
+    outline: none;
+    cursor: pointer;
+    user-select: none;
+    background: none;
+    padding: 2;
+}
+
+.custom_checkbox:checked {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-color: var(--purplish-blue) !important;
+    background-image: url(/src/assets/images/icon-checkmark.svg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
 }
