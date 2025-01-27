@@ -83,9 +83,7 @@ export default function Form(): React.JSX.Element {
             duration: "yearly",
         },
         step3: {
-            addOns: [
-                { name: "", value: "" }
-            ],
+            addOns: [],
         }
     }), [])
     const { index, data, errors, handleChange, handleNext, handleBack, setIndex } = useForm(initData, 4)

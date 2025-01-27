@@ -1,6 +1,6 @@
 import React from "react";
 import Checker from "../components/Checker";
-export default function Step3({ onChange, data, error }: { data: Pick<Form, "step2" | "step3">, error: string, onChange: (value: string, name: string) => void }): React.JSX.Element {
+export default function Step3({ onChange, data, error }: { data: Pick<Form, "step2" | "step3">, error: string, onChange: (value: addOns, name: string) => void }): React.JSX.Element {
     return <>
         <div className="">
             <div className="mb-10">

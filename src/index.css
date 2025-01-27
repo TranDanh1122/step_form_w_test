@@ -561,6 +561,11 @@ video {
   margin-right: auto;
 }
 
+.my-5{
+  margin-top: 1.25rem;
+  margin-bottom: 1.25rem;
+}
+
 .mb-10{
   margin-bottom: 2.5rem;
 }
@@ -575,6 +580,10 @@ video {
 
 .mt-8{
   margin-top: 2rem;
+}
+
+.mt-5{
+  margin-top: 1.25rem;
 }
 
 .flex{
@@ -748,6 +757,10 @@ video {
   background-color: rgb(255 255 255 / var(--tw-bg-opacity, 1));
 }
 
+.bg-\[var\(--light-gray\)\]{
+  background-color: var(--light-gray);
+}
+
 .bg-\[url\(\/src\/assets\/images\/bg-sidebar-desktop\.svg\)\]{
   background-image: url(/src/assets/images/bg-sidebar-desktop.svg);
 }
@@ -824,6 +837,10 @@ video {
 .text-base{
   font-size: 1rem;
   line-height: 1.5rem;
+}
+
+.text-\[1\.25rem\]{
+  font-size: 1.25rem;
 }
 
 .font-bold{
