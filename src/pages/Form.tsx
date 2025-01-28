@@ -25,6 +25,10 @@ export const useForm = (initData: Form, numberOfStep: number) => {
         step2: "",
         step3: ""
     })
+    const latestIndex = React.useRef(index);
+    React.useEffect(() => {
+        latestIndex.current = index;
+    }, [index]);
     /* 
         why your need index dependency????
         index is state => reactive value
@@ -34,11 +38,12 @@ export const useForm = (initData: Form, numberOfStep: number) => {
         But why not add data, data is reactive value too????
         because when you using callback to set data, the param (data) get the data of the CURRENT re-render
         so (data) is always the newest data!!!
+        And now, we need to remove index dependency, because all think in step will re-render if we change step
     */
     const handleChange = React.useCallback((value: string | addOns, name: string) => {
-        const currentStep = `step${index + 1}` as keyof Form
+        const currentStep = `step${latestIndex.current + 1}` as keyof Form
         setData((data: Form) => {
-            const newData = { ...data };        
+            const newData = { ...data };
             if (name == "addOns" && Array.isArray(newData[`step3`][name])) {
                 const arr = [...newData[`step3`][name]] as addOns[];
                 const addOn = value as addOns;
@@ -60,7 +65,7 @@ export const useForm = (initData: Form, numberOfStep: number) => {
             }
             return { ...newData }
         })
-    }, [index])
+    }, [])
 
     const handleNext = () => {
         setIndex((index) => {
@@ -94,36 +99,8 @@ export default function Form(): React.JSX.Element {
         }
     }), [])
     const { index, data, errors, handleChange, handleNext, handleBack, setIndex } = useForm(initData, 4)
-    React.useEffect(() => {
-        switch (data.step2.plan) {
-            case "arcade":
-                handleChange(data.step2.duration == "monthly" ? "9" : "90", "value")
-                break;
-            case "advantaged":
-                handleChange(data.step2.duration == "monthly" ? "12" : "120", "value")
-                break;
-            case "pro":
-                handleChange(data.step2.duration == "monthly" ? "15" : " 150", "value")
-                break;
-        }
-    }, [data.step2.duration])
-    React.useEffect(() => {
-        data.step3.addOns.forEach(addOn => {
-            let value = "0"
-            switch (addOn.name) {
-                case "Online service":
-                    value = data.step2.duration == "monthly" ? "1" : "10"
-                    break;
-                case "Larger storage":
-                    value = data.step2.duration == "monthly" ? "2" : "20"
-                    break;
-                case "Customizable profile":
-                    value = data.step2.duration == "monthly" ? "2" : "20"
-                    break;
-            }
-            handleChange({ name: addOn.name, value: value }, "addOns")
-        });
-    }, [data.step2.duration])
+
+
 
     return <div className="flex justify-start items-stretch p-6 w-3/4 bg-white rounded-2xl shadow-lg">
         <div className={`w-1/3 rounded-[10px] bg-[url(/src/assets/images/bg-sidebar-desktop.svg)] mb:bg-[url(/src/assets/images/bg-sidebar-mobile.svg)] bg-cover bg-center p-8 flex flex-col gap-8`} >
@@ -132,10 +109,18 @@ export default function Form(): React.JSX.Element {
             }
         </div>
         <div className="w-2/3 px-24 pt-14 pb-8">
-            {index == 0 && <Step1 data={data} error={errors} onChange={handleChange} />}
-            {index == 1 && <Step2 data={data} error={errors.step2} onChange={handleChange} />}
-            {index == 2 && <Step3 data={data} error={errors.step3} onChange={handleChange} />}
-            {index == 3 && <Step4 data={data} setIndex={setIndex} />}
+            <div className={`${index == 0 ? "block" : "hidden"}`}>
+                <Step1 data={data} error={errors} onChange={handleChange} />
+            </div>
+            <div className={`${index == 1 ? "block" : "hidden"}`}>
+                <Step2 data={data} error={errors.step2} onChange={handleChange} />
+            </div>
+            <div className={`${index == 2 ? "block" : "hidden"}`}>
+                <Step3 data={data} error={errors.step3} onChange={handleChange} />
+            </div>
+            <div className={`${index == 3 ? "block" : "hidden"}`}>
+                <Step4 data={data} setIndex={setIndex} />
+            </div>
 
             <div className="mt-20 flex justify-between font-medium text-base">
                 {index != 0 && <button onClick={handleBack} className="text-[var(--cool-gray)]">Back</button>}

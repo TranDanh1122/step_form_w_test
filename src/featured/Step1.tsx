@@ -19,7 +19,5 @@ function Step1({ onChange, data, error }: { data: Pick<Form, "step1">, error: Pi
             </div>
         </div>
     </>
-
-
 }
 export default Step1

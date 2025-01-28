@@ -5,7 +5,7 @@ interface CheckerProps extends Omit<PickerProps, "icon" | "onChange"> {
     onChange: (value: addOns, name: string) => void
 }
 const Checker = React.memo(({ name, desc, monthValue, yearValue, selected, duration, onChange }: CheckerProps): React.JSX.Element => {
-    console.log("picker render");
+    console.log("checker render");
     return <>
         <div onClick={(e) => {
             e.stopPropagation()
