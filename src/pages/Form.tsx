@@ -27,7 +27,7 @@ const validateRule: Dynamic = {
         if (!/^[0-9]{10}$/.test(value)) return 'Phone is not valid'
     },
     plan: (value: string) => { if (!value.trim()) return 'Plan is required' },
-    add_ons: (value: addOns[]) => { if (value.length <= 0) return "Select atleast one add-on" },
+    addOns: (value: addOns[]) => { if (value.length <= 0) return "Select atleast one add-on" },
 }
 export const useForm = (initData: Form, numberOfStep: number) => {
 
@@ -88,43 +88,47 @@ export const useForm = (initData: Form, numberOfStep: number) => {
     }, [])
     const validate = () => {
         let result = true
-        const currentData = data[`step${latestIndex.current + 1}` as keyof Form]
-        Object.keys(currentData).forEach(key => {
-            const error = validateRule[key](currentData[key])
-
-            if (latestIndex.current != 0) {
-                if (!error) {
-                    setErrors((errors) => ({ ...errors, [`step${latestIndex.current}`]: "" }))
-                    return;
-                }
-                result = false
-                setErrors((errors) => ({ ...errors, [`step${latestIndex.current}`]: error }))
-            } else {
-                if (!error) {
+        const currentStep = latestIndex.current + 1
+        const currentData = data[`step${currentStep}` as keyof Form]
+        Object.keys(currentData).forEach(key => {            
+            if (validateRule[key]) {
+                const error = validateRule[key](currentData[key])
+                if (latestIndex.current != 0) {
+                    if (!error) {
+                        setErrors((errors) => ({ ...errors, [`step${currentStep}`]: "" }))
+                        return;
+                    }
+                    console.log(1);
+                    
+                    result = false
+                    setErrors((errors) => ({ ...errors, [`step${currentStep}`]: error }))
+                } else {
+                    if (!error) {
+                        setErrors((errors) => ({
+                            ...errors,
+                            [`step${currentStep}`]: {
+                                ...(errors[`step${currentStep}`] as {
+                                    name: string;
+                                    email: string;
+                                    phone: string;
+                                }),
+                                [key]: ""
+                            }
+                        })); return;
+                    }
+                    result = false
                     setErrors((errors) => ({
                         ...errors,
-                        [`step${latestIndex.current + 1}`]: {
-                            ...(errors[`step${latestIndex.current + 1}`] as {
+                        [`step${currentStep}`]: {
+                            ...(errors[`step${currentStep}`] as {
                                 name: string;
                                 email: string;
                                 phone: string;
                             }),
-                            [key]: ""
+                            [key]: error
                         }
-                    })); return;
+                    }));
                 }
-                result = false
-                setErrors((errors) => ({
-                    ...errors,
-                    [`step${latestIndex.current + 1}`]: {
-                        ...(errors[`step${latestIndex.current + 1}`] as {
-                            name: string;
-                            email: string;
-                            phone: string;
-                        }),
-                        [key]: error
-                    }
-                }));
             }
         })
         return result
