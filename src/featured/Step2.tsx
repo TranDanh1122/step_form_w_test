@@ -33,7 +33,7 @@ export default function Step2({ onChange, data, error }: { data: Pick<Form, "ste
                     monthValue="15" yearValue="150" selected={data.step2?.plan == "pro"} duration={data.step2?.duration} />
             </div>
             <Toggle duration={data.step2.duration} onChange={onChange} />
-            {error && <span className="font-bold text-[0.875rem] w-fit mx-auto mt-8">{error}</span>}
+            {error && <span className="font-bold text-[0.875rem] w-fit mx-auto mt-8 text-[var(--strawberry-red)]">{error}</span>}
         </div>
     </>
 }

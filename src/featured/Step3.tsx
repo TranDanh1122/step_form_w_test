@@ -42,7 +42,7 @@ export default function Step3({ onChange, data, error }: { data: Pick<Form, "ste
                     onChange={onChange} />
             </div>
 
-            {error && <span className="font-bold text-[0.875rem] w-fit mx-auto mt-8">{error}</span>}
+            {error && <span className="font-bold text-[0.875rem] w-fit mx-auto mt-8 text-[var(--strawberry-red)]">{error}</span>}
         </div>
     </>
 }

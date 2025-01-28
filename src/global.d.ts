@@ -32,5 +32,20 @@ declare global {
         selected: boolean,
         duration: string
     }
+
+    interface Errors {
+        step1: {
+            name: string;
+            email: string;
+            phone: string;
+        };
+        step2: string;
+        step3: string;
+        [key: string]: string | {
+            name: string;
+            email: string;
+            phone: string;
+        }
+    }
 }
 export { }

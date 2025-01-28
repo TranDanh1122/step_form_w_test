@@ -12,11 +12,29 @@ const stepTitles = [
     { title: "SUMMARY" },
 
 ]
+interface Dynamic {
+    [key: string]: (value: any) => string | undefined
+}
+
+const validateRule: Dynamic = {
+    name: (value: string) => { if (!value.trim()) return 'Name is required' },
+    email: (value: string) => {
+        if (!value.trim()) return 'Email is required'
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) return 'Email is not valid'
+    },
+    phone: (value: string) => {
+        if (!value.trim()) return 'Phone is required'
+        if (!/^[0-9]{10}$/.test(value)) return 'Phone is not valid'
+    },
+    plan: (value: string) => { if (!value.trim()) return 'Plan is required' },
+    add_ons: (value: addOns[]) => { if (value.length <= 0) return "Select atleast one add-on" },
+}
 export const useForm = (initData: Form, numberOfStep: number) => {
 
     const [index, setIndex] = React.useState<number>(0)
     const [data, setData] = React.useState<Form>(initData)
-    const [errors, setErrors] = React.useState({
+
+    const [errors, setErrors] = React.useState<Errors>({
         step1: {
             name: "",
             email: "",
@@ -39,6 +57,8 @@ export const useForm = (initData: Form, numberOfStep: number) => {
         because when you using callback to set data, the param (data) get the data of the CURRENT re-render
         so (data) is always the newest data!!!
         And now, we need to remove index dependency, because all think in step will re-render if we change step
+        index change => trigger dependency 
+        => create new result of use callback => new handlechange => new prop => react.memo not working
     */
     const handleChange = React.useCallback((value: string | addOns, name: string) => {
         const currentStep = `step${latestIndex.current + 1}` as keyof Form
@@ -66,11 +86,56 @@ export const useForm = (initData: Form, numberOfStep: number) => {
             return { ...newData }
         })
     }, [])
+    const validate = () => {
+        let result = true
+        const currentData = data[`step${latestIndex.current + 1}` as keyof Form]
+        Object.keys(currentData).forEach(key => {
+            const error = validateRule[key](currentData[key])
 
+            if (latestIndex.current != 0) {
+                if (!error) {
+                    setErrors((errors) => ({ ...errors, [`step${latestIndex.current}`]: "" }))
+                    return;
+                }
+                result = false
+                setErrors((errors) => ({ ...errors, [`step${latestIndex.current}`]: error }))
+            } else {
+                if (!error) {
+                    setErrors((errors) => ({
+                        ...errors,
+                        [`step${latestIndex.current + 1}`]: {
+                            ...(errors[`step${latestIndex.current + 1}`] as {
+                                name: string;
+                                email: string;
+                                phone: string;
+                            }),
+                            [key]: ""
+                        }
+                    })); return;
+                }
+                result = false
+                setErrors((errors) => ({
+                    ...errors,
+                    [`step${latestIndex.current + 1}`]: {
+                        ...(errors[`step${latestIndex.current + 1}`] as {
+                            name: string;
+                            email: string;
+                            phone: string;
+                        }),
+                        [key]: error
+                    }
+                }));
+            }
+        })
+        return result
+    }
     const handleNext = () => {
         setIndex((index) => {
-            if ((index + 1) == numberOfStep) return index
-            return index + 1
+            if (validate()) {
+                if ((index + 1) == numberOfStep) return index
+                return index + 1
+            }
+            return index
         })
     }
     const handleBack = () => {
