@@ -38,28 +38,27 @@ export const useForm = (initData: Form, numberOfStep: number) => {
     const handleChange = React.useCallback((value: string | addOns, name: string) => {
         const currentStep = `step${index + 1}` as keyof Form
         setData((data: Form) => {
-            if (name == "addOns" && Array.isArray(data[currentStep][name])) {
-                const arr = data[currentStep][name]
-                const addOn = value as addOns
-                const findIdx = arr.findIndex(el => el.name === addOn.name)
-                if (findIdx != -1) { //check if exist
-                    if (arr[findIdx].value == addOn.value) { //if not change value
-                        data[currentStep][name] = arr.filter(el => el.name !== addOn.name)
-                    } else {  //if change value
-                        data[currentStep][name] = arr.map(el => {
-                            if (el.name == addOn.name) return { ...el, value: addOn.value }
-                            return el
-                        })
+            const newData = { ...data };        
+            if (name == "addOns" && Array.isArray(newData[`step3`][name])) {
+                const arr = [...newData[`step3`][name]] as addOns[];
+                const addOn = value as addOns;
+                const findIdx = arr.findIndex(el => el.name === addOn.name);
+                if (findIdx !== -1) {
+                    if (arr[findIdx].value === addOn.value) {
+                        newData[`step3`][name] = arr.filter(el => el.name !== addOn.name);
+                    } else {
+                        newData[`step3`][name] = arr.map(el => {
+                            return el.name === addOn.name ? { ...el, value: addOn.value } : el
+                        });
                     }
                 } else {
-                    data[currentStep][name].push(addOn)
+                    arr.push(addOn);
+                    newData[`step3`][name] = arr;
                 }
             } else {
-                data[currentStep][name] = value as string
+                newData[currentStep][name] = value as string
             }
-            console.log(data);
-
-            return { ...data }
+            return { ...newData }
         })
     }, [index])
 
@@ -95,6 +94,37 @@ export default function Form(): React.JSX.Element {
         }
     }), [])
     const { index, data, errors, handleChange, handleNext, handleBack, setIndex } = useForm(initData, 4)
+    React.useEffect(() => {
+        switch (data.step2.plan) {
+            case "arcade":
+                handleChange(data.step2.duration == "monthly" ? "9" : "90", "value")
+                break;
+            case "advantaged":
+                handleChange(data.step2.duration == "monthly" ? "12" : "120", "value")
+                break;
+            case "pro":
+                handleChange(data.step2.duration == "monthly" ? "15" : " 150", "value")
+                break;
+        }
+    }, [data.step2.duration])
+    React.useEffect(() => {
+        data.step3.addOns.forEach(addOn => {
+            let value = "0"
+            switch (addOn.name) {
+                case "Online service":
+                    value = data.step2.duration == "monthly" ? "1" : "10"
+                    break;
+                case "Larger storage":
+                    value = data.step2.duration == "monthly" ? "2" : "20"
+                    break;
+                case "Customizable profile":
+                    value = data.step2.duration == "monthly" ? "2" : "20"
+                    break;
+            }
+            handleChange({ name: addOn.name, value: value }, "addOns")
+        });
+    }, [data.step2.duration])
+
     return <div className="flex justify-start items-stretch p-6 w-3/4 bg-white rounded-2xl shadow-lg">
         <div className={`w-1/3 rounded-[10px] bg-[url(/src/assets/images/bg-sidebar-desktop.svg)] mb:bg-[url(/src/assets/images/bg-sidebar-mobile.svg)] bg-cover bg-center p-8 flex flex-col gap-8`} >
             {

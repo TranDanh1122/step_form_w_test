@@ -1,24 +1,7 @@
 import React from "react";
 import Checker from "../components/Checker";
 export default function Step3({ onChange, data, error }: { data: Pick<Form, "step2" | "step3">, error: string, onChange: (value: addOns, name: string) => void }): React.JSX.Element {
-    React.useEffect(() => {
-        data.step3.addOns.forEach(addOn => {
-            let value = "0"
-            switch (addOn.name) {
-                case "Online service":
-                    value = data.step2.duration == "monthly" ? "1" : "10"
-                    break;
-                case "Larger storage":
-                    value = data.step2.duration == "monthly" ? "2" : "20"
-                    break;
-                case "Customizable profile":
-                    value = data.step2.duration == "monthly" ? "2" : "20"
-                    break;
-            }
-            onChange({ name: addOn.name, value: value }, "addOns")
-        });
 
-    }, [data.step2.duration])
     return <>
         <div className="">
             <div className="mb-10">

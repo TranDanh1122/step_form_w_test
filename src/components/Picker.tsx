@@ -5,6 +5,7 @@ const Picker = React.memo(({ icon, name, monthValue, yearValue, selected, durati
     return <>
         <div onClick={() => {
             onChange(name, "plan")
+            onChange(duration == "monthly" ? monthValue : yearValue, "value")
         }} className={clsx("border-[2px] border-solid p-4 w-full rounded-lg cursor-pointer hover:border-[var(--purplish-blue)] ", {
             "border-[var(--purplish-blue)] bg-[var(--alabaster)]": selected,
             "border-[var(--light-gray)]": !selected
