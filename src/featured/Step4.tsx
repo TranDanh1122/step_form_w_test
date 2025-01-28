@@ -1,5 +1,10 @@
 import React from "react";
 export default function Step4({ data, setIndex }: { data: Form, setIndex: React.Dispatch<React.SetStateAction<number>> }): React.JSX.Element {
+    const total = React.useMemo(() => {
+        const addOnsTotal = data.step3.addOns.reduce((sum, current) => sum + parseInt(current.value), 0)
+        const plan = parseInt(data.step2.value)
+        return addOnsTotal + plan
+    }, [data.step3.addOns, data.step2.value])
     return <>
         <div className="">
             <div className="mb-10">
@@ -28,7 +33,7 @@ export default function Step4({ data, setIndex }: { data: Form, setIndex: React.
             </div>
             <div className="flex justify-between items-center px-6 py-4">
                 <span className=" leading-5 text-[0.875rem] text-[var(--cool-gray)]">Total (per {data.step2.duration == "monthly" ? "month" : "year"})</span>
-                <span className="text-[1.25rem] font-bold leading-5 text-[var(--purplish-blue)]">120$</span>
+                <span className="text-[1.25rem] font-bold leading-5 text-[var(--purplish-blue)]">${total}</span>
             </div>
 
         </div>

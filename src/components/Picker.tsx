@@ -2,11 +2,9 @@ import clsx from "clsx";
 import React from "react";
 const Picker = React.memo(({ icon, name, monthValue, yearValue, selected, duration, onChange }: PickerProps): React.JSX.Element => {
     console.log("picker render");
-
     return <>
         <div onClick={() => {
             onChange(name, "plan")
-            onChange(duration == "month" ? monthValue : yearValue, "value")
         }} className={clsx("border-[2px] border-solid p-4 w-full rounded-lg cursor-pointer hover:border-[var(--purplish-blue)] ", {
             "border-[var(--purplish-blue)] bg-[var(--alabaster)]": selected,
             "border-[var(--light-gray)]": !selected

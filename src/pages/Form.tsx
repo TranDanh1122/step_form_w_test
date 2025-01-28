@@ -40,11 +40,19 @@ export const useForm = (initData: Form, numberOfStep: number) => {
         setData((data: Form) => {
             if (name == "addOns" && Array.isArray(data[currentStep][name])) {
                 const arr = data[currentStep][name]
-                const findIdx = arr.findIndex(el => el.name === (value as addOns).name)
-                if (findIdx != -1) {                        
-                    data[currentStep][name] = arr.filter(el => el.name !== (value as addOns).name)
+                const addOn = value as addOns
+                const findIdx = arr.findIndex(el => el.name === addOn.name)
+                if (findIdx != -1) { //check if exist
+                    if (arr[findIdx].value == addOn.value) { //if not change value
+                        data[currentStep][name] = arr.filter(el => el.name !== addOn.name)
+                    } else {  //if change value
+                        data[currentStep][name] = arr.map(el => {
+                            if (el.name == addOn.name) return { ...el, value: addOn.value }
+                            return el
+                        })
+                    }
                 } else {
-                    data[currentStep][name].push(value as addOns)
+                    data[currentStep][name].push(addOn)
                 }
             } else {
                 data[currentStep][name] = value as string
