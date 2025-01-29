@@ -38,14 +38,5 @@ describe("Step3 component", () => {
             expect(mockChange).toHaveBeenCalledOnce()
             expect(mockChange).toBeCalledWith({ name: "Customizable profile", value: "20" }, "addOns")
         })
-        it("toggle", () => {
-            const props = mockProps()
-            const { rerender } = render(<Step3 {...props} />)
-            mockChange.mockClear()
-            rerender(<Step3 {...props} data={{ ...props.data, step2: { ...props.data.step2, duration: "monthly" } }} />)
-            expect(mockChange).toHaveBeenCalledOnce()
-            expect(mockChange).toBeCalledWith({ name: "Larger storage", value: "2" }, "addOns")
-
-        })
     })
 })

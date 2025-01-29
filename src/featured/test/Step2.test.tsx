@@ -38,19 +38,14 @@ describe("Step2 component", () => {
             expect(mockChange).toBeCalledWith("120", "value")
 
         })
-        it("toggle", () => {
+        it("toggle",  () => {
             const props = mockProps()
-            const { rerender } = render(<Step2 {...props} />)
+           render(<Step2 {...props} />)
             const toggle = screen.getByRole("toggle")
             mockChange.mockClear()
             fireEvent.change(toggle, { target: { value: "0" } })
             expect(mockChange).toHaveBeenCalledOnce()
             expect(mockChange).toBeCalledWith("monthly", "duration")
-            mockChange.mockClear()
-            rerender(<Step2 {...props} data={{ ...props.data, step2: { ...props.data.step2, duration: "monthly" } }} />)
-            expect(mockChange).toHaveBeenCalledOnce()
-            expect(mockChange).toBeCalledWith("9", "value")
-
         })
     })
 })

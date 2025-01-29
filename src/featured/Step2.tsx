@@ -5,19 +5,7 @@ import advantagedIcon from "../assets/images/icon-advanced.svg"
 import proIcon from "../assets/images/icon-advanced.svg"
 import Toggle from "../components/Toggle";
 export default function Step2({ onChange, data, error }: { data: Pick<Form, "step2">, error: string, onChange: (value: string, name: string) => void }): React.JSX.Element {
-    React.useEffect(() => {
-        switch (data.step2.plan) {
-            case "arcade":
-                onChange(data.step2.duration == "monthly" ? "9" : "90", "value")
-                break;
-            case "advantaged":
-                onChange(data.step2.duration == "monthly" ? "12" : "120", "value")
-                break;
-            case "pro":
-                onChange(data.step2.duration == "monthly" ? "15" : " 150", "value")
-                break;
-        }
-    }, [data.step2.duration])
+
     return <>
         <div className="">
             <div className="mb-10">
