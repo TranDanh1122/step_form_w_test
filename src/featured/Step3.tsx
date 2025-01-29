@@ -5,8 +5,8 @@ export default function Step3({ onChange, data, error }: { data: Pick<Form, "ste
     return <>
         <div className="">
             <div className="mb-10">
-                <h1 className="font-bold text-[2rem] text-[var(--marine-blue)]">Pick add-ons</h1>
-                <span className="font-medium text-base leading-6 text-[var(--cool-gray)]">Add-ons help enhance your gaming experience.</span>
+                <h1 className="font-bold text-[2rem] mb:text-[1.5rem] text-[var(--marine-blue)]">Pick add-ons</h1>
+                <span className="font-medium mb:font-normal text-base leading-6 text-[var(--cool-gray)]">Add-ons help enhance your gaming experience.</span>
             </div>
             <div className="flex flex-col gap-6">
                 <Checker name="Online service" desc="Access to multiplayer games"

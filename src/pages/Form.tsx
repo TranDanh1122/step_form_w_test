@@ -32,16 +32,39 @@ export default function Form(): React.JSX.Element {
         }
     }), [])
     const { index, data, errors, handleChange, handleNext, handleBack, setIndex, end } = useForm(initData, 4)
-
-
-
-    return <div className="flex justify-start items-stretch p-6 w-3/4 bg-white rounded-2xl min-h-[600px] shadow-lg">
-        <div className={`w-1/3 rounded-[10px] bg-[url(/src/assets/images/bg-sidebar-desktop.svg)] mb:bg-[url(/src/assets/images/bg-sidebar-mobile.svg)] bg-cover bg-center p-8 flex flex-col gap-8`} >
+    const ref = React.useRef({
+        footer: React.createRef<HTMLDivElement>(),
+        form: React.createRef<HTMLDivElement>(),
+        footerDesk: React.createRef<HTMLDivElement>(),
+    })
+    React.useEffect(() => {
+        if (ref.current && ref.current.footer.current && ref.current.form.current) {
+            const footerHeight = (ref.current.footer.current as HTMLDivElement).getBoundingClientRect().height
+            ref.current.form.current.style.marginBottom = `${footerHeight}px`
+        }
+    }, [index])
+    React.useEffect(() => {
+        const handleReSize = () => {
+            if (ref.current && ref.current.footer.current && ref.current.footerDesk.current) {
+                if (window.innerWidth > 1023) {
+                    ref.current.footer.current.style.display = "none"
+                    ref.current.footerDesk.current.style.display = "block"
+                } else {
+                    ref.current.footer.current.style.display = "block"
+                    ref.current.footerDesk.current.style.display = "none"
+                }
+            }
+        }
+        window.addEventListener("resize" , handleReSize)
+        return () => window.removeEventListener("resize" , handleReSize)
+    } , [])
+    return <div ref={ref.current.form} className="flex mb:bg-[var(--light-blue)] mb:flex-col justify-start items-stretch p-6 mb:p-0 w-3/4 mb:w-full bg-white rounded-2xl mb:rounded-none min-h-[600px] shadow-lg mb:shadow-none">
+        <div className={`w-1/3 mb:w-full mb:h-[30vh]  rounded-[10px] bg-[url(/src/assets/images/bg-sidebar-desktop.svg)] mb:bg-[url(/src/assets/images/bg-sidebar-mobile.svg)] bg-cover bg-center p-8 mb:p-2 flex flex-col mb:flex-row mb:gap-2 mb:justify-evenly gap-8`} >
             {
                 stepTitles.map((step, idx) => <Step index={idx + 1} title={step.title} selected={index == idx} />)
             }
         </div>
-        <div className="w-2/3 px-24 pt-14 pb-8">
+        <div className="w-2/3 mb:w-[90%] mb:mx-auto mb:bg-white px-24 pt-14 pb-8 mb:relative mb:translate-y-[-15%] mb:rounded-lg mb:px-6 mb:py-8">
             {!end && <>
 
                 <div className={`${index == 0 ? "block" : "hidden"}`}>
@@ -59,12 +82,18 @@ export default function Form(): React.JSX.Element {
             </>
             }
             {end && <End />}
-            {!end &&
-                <div className="mt-20 flex justify-between font-medium text-base">
-                    {index != 0 && <button onClick={handleBack} className="text-[var(--cool-gray)]">Back</button>}
-                    <button onClick={handleNext} className={`text-white ml-auto px-6 py-4 bg-[var(--marine-blue)] rounded-lg hover:bg-[var(--marine-blue)]/50`}>Next Step</button>
+            {!end && 
+                <div ref={ref.current.footerDesk} className="mt-20  flex justify-between font-medium text-base mb:hidden">
+                    {index != 0 && <button onClick={handleBack} className="text-[var(--cool-gray)]">Go Back</button>}
+                    <button onClick={handleNext} className={`${index != 3 ? "bg-[var(--marine-blue)] " : "bg-[var(--purplish-blue)] "} text-white ml-auto block px-6 py-4 rounded-lg hover:bg-[var(--marine-blue)]/50 `}>{index != 3 ? "Next Step" : "Confirm"} </button>
                 </div>
             }
         </div>
+        {!end && 
+            <div ref={ref.current.footer} className="hidden mb:flex items-center  px-2 py-4 justify-between font-medium w-full text-base fixed bottom-0 left-0 bg-white">
+                {index != 0 && <button onClick={handleBack} className="text-[var(--cool-gray)]">Go Back</button>}
+                <button onClick={handleNext} className={`${index != 3 ? "bg-[var(--marine-blue)] " : "bg-[var(--purplish-blue)] "} block ml-auto text-[0.875rem] text-white px-4 py-2 rounded-lg hover:bg-[var(--marine-blue)]/50 `}>{index != 3 ? "Next Step" : "Confirm"} </button>
+            </div>
+        }
     </div>
 }

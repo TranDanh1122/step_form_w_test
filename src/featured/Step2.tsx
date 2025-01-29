@@ -9,10 +9,10 @@ export default function Step2({ onChange, data, error }: { data: Pick<Form, "ste
     return <>
         <div className="">
             <div className="mb-10">
-                <h1 className="font-bold text-[2rem] text-[var(--marine-blue)]">Personal info</h1>
+                <h1 className="font-bold text-[2rem] mb:text-[1.5rem] text-[var(--marine-blue)]">Personal info</h1>
                 <span className="font-medium text-base leading-6 text-[var(--cool-gray)]">Please provide your name, email address, and phone number.</span>
             </div>
-            <div className="flex gap-6">
+            <div className="flex mb:flex-col gap-6">
                 <Picker onChange={onChange} icon={arcadeIcon} name={"arcade"}
                     monthValue="9" yearValue="90" selected={data.step2?.plan == "arcade"} duration={data.step2?.duration} />
                 <Picker onChange={onChange} icon={advantagedIcon} name={"advantaged"}

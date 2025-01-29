@@ -8,8 +8,8 @@ export default function Step4({ data, setIndex }: { data: Form, setIndex: React.
     return <>
         <div className="">
             <div className="mb-10">
-                <h1 className="font-bold text-[2rem] text-[var(--marine-blue)]">Finishing up</h1>
-                <span className="font-medium text-base leading-6 text-[var(--cool-gray)]">Double-check everything looks OK before confirming.</span>
+                <h1 className="font-bold text-[2rem] mb:text-[1.5rem] text-[var(--marine-blue)]">Finishing up</h1>
+                <span className="font-medium text-base mb:font-normal leading-6 text-[var(--cool-gray)]">Double-check everything looks OK before confirming.</span>
             </div>
             <div className="rounded-lg w-full px-6 py-4 bg-[var(--magnolia)]">
                 <div className="flex justify-between items-center w-full">
