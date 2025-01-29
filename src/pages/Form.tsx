@@ -61,9 +61,7 @@ export const useForm = (initData: Form, numberOfStep: number) => {
         => create new result of use callback => new handlechange => new prop => react.memo not working
     */
     const handleChange = React.useCallback((value: string | addOns, name: string) => {
-        const currentStep = `step${latestIndex.current + 1}` as keyof Form
-        console.log("10");
-        
+        const currentStep = `step${latestIndex.current + 1}` as keyof Form        
         setData((data: Form) => {
             const newData = { ...data };
             if (name == "addOns" && Array.isArray(newData[`step3`][name])) {

@@ -2,7 +2,6 @@ import { describe, it, expect, vi } from "vitest";
 import Input from '../Input';
 import { fireEvent, render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import userEvent from '@testing-library/user-event'
 
 describe("Input Component", () => {
     const mockChange = vi.fn()
@@ -55,8 +54,8 @@ describe("Input Component", () => {
             const input = screen.getByLabelText("Test Label") as HTMLInputElement
             mockChange.mockClear()
             await fireEvent.change(input, { target: { value: "10" } })
-            expect(mockChange).toHaveBeenCalledTimes(1)
-            expect(mockChange).toHaveBeenCalledWith("10", "inputTest")
+            expect(mockChange).toHaveBeenCalledTimes(1);
+            expect(mockChange).toHaveBeenCalledWith("10", "inputTest");
         })
     })
 })
