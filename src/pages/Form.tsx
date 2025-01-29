@@ -62,6 +62,8 @@ export const useForm = (initData: Form, numberOfStep: number) => {
     */
     const handleChange = React.useCallback((value: string | addOns, name: string) => {
         const currentStep = `step${latestIndex.current + 1}` as keyof Form
+        console.log("10");
+        
         setData((data: Form) => {
             const newData = { ...data };
             if (name == "addOns" && Array.isArray(newData[`step3`][name])) {

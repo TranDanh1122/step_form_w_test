@@ -21,8 +21,6 @@ const Input = React.memo(({ name, label, placeHolder, onChange, error, value, ty
             "focus:border-[var(--purplish-blue)]": !error,
             "border-[var(--strawberry-red)]": error
         })} type={type} id={name} name={name} placeholder={placeHolder} onChange={(e) => {
-            console.log(1);
-            
             onChange(e.target.value, name)
         }} />
     </fieldset>

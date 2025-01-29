@@ -53,6 +53,7 @@ describe("Input Component", () => {
             const props = mockProps({ label: "Test Label", type: "email" })
             render(<Input {...props} />)
             const input = screen.getByLabelText("Test Label") as HTMLInputElement
+            mockChange.mockClear()
             await fireEvent.change(input, { target: { value: "10" } })
             expect(mockChange).toHaveBeenCalledTimes(1)
             expect(mockChange).toHaveBeenCalledWith("10", "inputTest")
