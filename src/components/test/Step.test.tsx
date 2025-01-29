@@ -1,5 +1,5 @@
-import { describe, it, vi, expect } from "vitest";
-import { render, fireEvent, screen, getByText } from "@testing-library/react";
+import { describe, it, expect } from "vitest";
+import { render, screen } from "@testing-library/react";
 import '@testing-library/jest-dom';
 import Step from "../Step";
 describe("Step Component", () => {
