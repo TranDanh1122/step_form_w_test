@@ -35,7 +35,7 @@ export default function Form(): React.JSX.Element {
 
 
 
-    return <div className="flex justify-start items-stretch p-6 w-3/4 bg-white rounded-2xl shadow-lg">
+    return <div className="flex justify-start items-stretch p-6 w-3/4 bg-white rounded-2xl min-h-[600px] shadow-lg">
         <div className={`w-1/3 rounded-[10px] bg-[url(/src/assets/images/bg-sidebar-desktop.svg)] mb:bg-[url(/src/assets/images/bg-sidebar-mobile.svg)] bg-cover bg-center p-8 flex flex-col gap-8`} >
             {
                 stepTitles.map((step, idx) => <Step index={idx + 1} title={step.title} selected={index == idx} />)
@@ -58,14 +58,13 @@ export default function Form(): React.JSX.Element {
                 </div>
             </>
             }
-            {end && <>
-                <End />
-            </>}
-
-            <div className="mt-20 flex justify-between font-medium text-base">
-                {index != 0 && <button onClick={handleBack} className="text-[var(--cool-gray)]">Back</button>}
-                <button onClick={handleNext} className={`text-white ml-auto px-6 py-4 bg-[var(--marine-blue)] rounded-lg hover:bg-[var(--marine-blue)]/50`}>Next Step</button>
-            </div>
+            {end && <End />}
+            {!end &&
+                <div className="mt-20 flex justify-between font-medium text-base">
+                    {index != 0 && <button onClick={handleBack} className="text-[var(--cool-gray)]">Back</button>}
+                    <button onClick={handleNext} className={`text-white ml-auto px-6 py-4 bg-[var(--marine-blue)] rounded-lg hover:bg-[var(--marine-blue)]/50`}>Next Step</button>
+                </div>
+            }
         </div>
     </div>
 }

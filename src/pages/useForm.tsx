@@ -152,11 +152,12 @@ export const useForm = (initData: Form, numberOfStep: number) => {
     }
     const handleNext = () => {
         setIndex((index) => {
+            if ((index + 1) === numberOfStep) {
+                setEnd(true)
+                return index
+            }
             if (validate()) {
-                if ((index + 1) === numberOfStep) {
-                    setEnd(true)
-                    return index
-                }
+
                 return index + 1
             }
             return index
