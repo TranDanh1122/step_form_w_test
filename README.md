@@ -1,50 +1,27 @@
-# React + TypeScript + Vite
+# 📝 Multi-Step Form
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+ A modern, interactive multi-step form built with React, Vite, and TypeScript. 🚀
 
-Currently, two official plugins are available:
+## ✨ Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+✔️ Smooth multi-step navigation
 
-## Expanding the ESLint configuration
+✔️ Form validation using React custom hooks (no library)
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+✔️ Responsive and accessible design
 
-- Configure the top-level `parserOptions` property like this:
+✔️ Lightweight and optimized performance with React.memo
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+✔️ Basic component, hook, flow testing with Vitest
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+## 🛠️ Tech Stack
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+Frontend: React 18, TypeScript, Vite 6
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+State Management: React useState / useReducer
+
+Styling: TailwindCSS (if applicable)
+
+Form Validation: React Hook Form + Zod (if used)
+
+Testing: Vitest + React Testing Library
